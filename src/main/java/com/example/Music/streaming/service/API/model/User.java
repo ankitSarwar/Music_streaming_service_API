@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
 
 @Data
@@ -32,6 +29,8 @@ public class User {
     private String email;
 
     @NotEmpty
+    @Size(min=10,max=12)
+    @Pattern(regexp = "^[0-9]+$")
     private String userContact;
 
 

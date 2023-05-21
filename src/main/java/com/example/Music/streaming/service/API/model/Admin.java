@@ -22,6 +22,8 @@ public class Admin {
     private String password;
 
     @NotEmpty
+    @Size(min=10,max=12)
+    @Pattern(regexp = "^[0-9]+$")
     private String adminContact;
 
     @Column(unique = true, nullable = false)

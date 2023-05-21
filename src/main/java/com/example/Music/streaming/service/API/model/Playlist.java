@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "PlayList")
 public class Playlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +25,7 @@ public class Playlist {
     private User user;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false , name = "fk_Song_ID")
     private List<Song>songs;
 
 }
