@@ -25,12 +25,12 @@ public class SwaggerConfig {
 
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
-                .title("Food Delivery ")
-                .description("Food Delivery - Create account and Order food By Authenticating")
+                .title("Music streaming API  ")
+                .description("Music streaming - Create account and Order food By Authenticating")
                 .version("1.1.0")
                 .license("Apache 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
-                .contact(new Contact("Satyam Jaiswal", "Email : satyamjaiswal91@gmail.com","+91-8318876415"))
+                .contact(new Contact("ankit sarwar", "Email : ankitsarwar039@gmail.com","+91-9370215465"))
                 .build();
     }
 }
