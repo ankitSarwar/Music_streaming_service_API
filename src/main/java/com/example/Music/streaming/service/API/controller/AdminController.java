@@ -118,7 +118,7 @@ public class AdminController { // http://localhost:8080/swagger-ui.html#/
     }
 
 
-    @GetMapping("/songs") // http://localhost:8080/User/songs?pageNumber=0&pageSize=5
+    @GetMapping("/songs") // http://localhost:8080/Admin/songs?pageNumber=0&pageSize=5
     public ResponseEntity<List<Song>> getAllSongs(
             @RequestParam(value = "pageNumber",defaultValue = "1",required = false)Integer pageNumber,
             @RequestParam(value = "pageSize",defaultValue = "5",required = false)Integer pageSize
