@@ -26,7 +26,7 @@ public class SwaggerConfig {
     private ApiInfo metaData() {
         return new ApiInfoBuilder()
                 .title("Music streaming API  ")
-                .description("Music streaming - Create account and Order food By Authenticating")
+                .description("Music streaming - Create account and spotify song app By Authenticating")
                 .version("1.1.0")
                 .license("Apache 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")

@@ -10,6 +10,7 @@ import com.example.Music.streaming.service.API.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -119,9 +120,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Transactional
     public void deleteUser(Long userId)
     {
-        userRepository.deleteById(userId);
+        userRepository.deleteUserById(userId);
     }
 
 

@@ -5,9 +5,11 @@ import com.example.Music.streaming.service.API.dto.SignInOutput;
 import com.example.Music.streaming.service.API.dto.SignUpOutput;
 import com.example.Music.streaming.service.API.model.Admin;
 import com.example.Music.streaming.service.API.model.Song;
+import com.example.Music.streaming.service.API.model.User;
 import com.example.Music.streaming.service.API.service.AdminService;
 import com.example.Music.streaming.service.API.service.AdminTokenService;
 import com.example.Music.streaming.service.API.service.SongService;
+import com.example.Music.streaming.service.API.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Admin")
-public class AdminController {
+public class AdminController { // http://localhost:8080/swagger-ui.html#/
 
     @Autowired
     AdminService adminService;
@@ -28,6 +30,9 @@ public class AdminController {
 
     @Autowired
     AdminTokenService authService;
+
+    @Autowired
+    UserService userService;
 
 
     @PostMapping("/signup")
@@ -113,9 +118,12 @@ public class AdminController {
     }
 
 
-    @GetMapping("/songs")
-    public ResponseEntity<List<Song>> getAllSongs() {
-        List<Song> songs = songService.getAllSongs();
+    @GetMapping("/songs") // http://localhost:8080/User/songs?pageNumber=0&pageSize=5
+    public ResponseEntity<List<Song>> getAllSongs(
+            @RequestParam(value = "pageNumber",defaultValue = "1",required = false)Integer pageNumber,
+            @RequestParam(value = "pageSize",defaultValue = "5",required = false)Integer pageSize
+    ) {
+        List<Song> songs = songService.getAllSongs(pageNumber,pageSize);
         return ResponseEntity.ok(songs);
     }
 
@@ -139,6 +147,35 @@ public class AdminController {
         songService.deleteSong(songId);
         return ResponseEntity.noContent().build();
     }
+
+    // Get All User , delete user
+
+    @GetMapping("/getAllUser")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteUser(@Valid @RequestParam String email , @RequestParam String token,@PathVariable Long userId) {
+        HttpStatus status;
+        String msg=null;
+
+        if(authService.authenticate(email,token))
+        {
+            authService.deleteUser(userId);
+            msg = "Delete User";
+            status = HttpStatus.OK;
+
+        }
+        else
+        {
+            msg = "Invalid Admin";
+            status = HttpStatus.FORBIDDEN;
+        }
+
+        return new ResponseEntity<String>(msg , status);
+    }
+
 
 
 }

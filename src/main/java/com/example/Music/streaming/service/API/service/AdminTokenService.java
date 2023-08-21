@@ -12,6 +12,10 @@ public class AdminTokenService {
     @Autowired
     IAdminTokenRepo tokenRepo;
 
+    @Autowired
+    UserService userService;
+
+
     public void saveToken(AdminAuthenticationToken token) {
         tokenRepo.save(token);
     }
@@ -47,5 +51,9 @@ public class AdminTokenService {
         AdminAuthenticationToken token1 = tokenRepo.findFirstByToken(token);
 
         tokenRepo.deleteById(token1.getTokenId());
+    }
+
+    public void deleteUser(Long userId) {
+        userService.deleteUser(userId);
     }
 }

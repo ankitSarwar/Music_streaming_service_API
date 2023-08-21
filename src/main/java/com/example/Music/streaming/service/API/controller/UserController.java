@@ -4,9 +4,11 @@ import com.example.Music.streaming.service.API.dto.SignInInput;
 import com.example.Music.streaming.service.API.dto.SignInOutput;
 import com.example.Music.streaming.service.API.dto.SignUpOutput;
 import com.example.Music.streaming.service.API.model.Playlist;
+import com.example.Music.streaming.service.API.model.Song;
 import com.example.Music.streaming.service.API.model.User;
 import com.example.Music.streaming.service.API.model.UserAuthenticationToken;
 import com.example.Music.streaming.service.API.service.PlaylistService;
+import com.example.Music.streaming.service.API.service.SongService;
 import com.example.Music.streaming.service.API.service.UserService;
 import com.example.Music.streaming.service.API.service.UserTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class UserController {
 
     @Autowired
     PlaylistService playlistService;
+
+    @Autowired
+    SongService songService;
 
     @Autowired
     UserTokenService authService;
@@ -81,6 +86,15 @@ public class UserController {
         return new ResponseEntity<String>(msg , status);
     }
 
+
+    @GetMapping("/songs")
+    public ResponseEntity<List<Song>> getAllSongs(
+            @RequestParam(value = "pageNumber",defaultValue = "1",required = false)Integer pageNumber,
+            @RequestParam(value = "pageSize",defaultValue = "5",required = false)Integer pageSize
+    ) {
+        List<Song> songs = songService.getAllSongs(pageNumber,pageSize);
+        return ResponseEntity.ok(songs);
+    }
 
 
     // Add song to user playlist

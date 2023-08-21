@@ -3,6 +3,9 @@ package com.example.Music.streaming.service.API.service;
 import com.example.Music.streaming.service.API.model.Song;
 import com.example.Music.streaming.service.API.repository.ISongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +21,12 @@ public class SongService {
         return songRepository.save(song);
     }
 
-    public List<Song> getAllSongs() {
-        return songRepository.findAll();
+    public List<Song> getAllSongs(Integer pageNumber,Integer pageSize) {
+
+        Pageable p= PageRequest.of(pageNumber,pageSize);
+        Page<Song> pageSong =songRepository.findAll(p);
+        List<Song>allSong=pageSong.getContent();
+        return allSong;
     }
 
     public Song getSongById(Long songId) {
